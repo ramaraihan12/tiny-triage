@@ -1,0 +1,269 @@
+{
+  "seed": 0,
+  "splits": {
+    "repo_split": {
+      "category": {
+        "n_train": 20257,
+        "n_val": 4552,
+        "n_test": 4245,
+        "test_class_counts": {
+          "docs": 432,
+          "feature": 1484,
+          "bug": 1475,
+          "question": 854
+        },
+        "chosen_C": 2.0,
+        "val_macro_f1_by_C": {
+          "0.5": 0.6521,
+          "2.0": 0.6562,
+          "8.0": 0.6472
+        },
+        "test_macro_f1": 0.6309,
+        "test_accuracy": 0.6612,
+        "majority_class": "bug",
+        "majority_macro_f1": 0.1289,
+        "per_class": {
+          "bug": {
+            "precision": 0.5993,
+            "recall": 0.7119,
+            "f1": 0.6508,
+            "support": 1475
+          },
+          "feature": {
+            "precision": 0.739,
+            "recall": 0.8032,
+            "f1": 0.7698,
+            "support": 1484
+          },
+          "question": {
+            "precision": 0.5803,
+            "recall": 0.3595,
+            "f1": 0.444,
+            "support": 854
+          },
+          "docs": {
+            "precision": 0.735,
+            "recall": 0.5972,
+            "f1": 0.659,
+            "support": 432
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "bug",
+            "feature",
+            "question",
+            "docs"
+          ],
+          "rows_true_cols_pred": [
+            [
+              1050,
+              260,
+              131,
+              34
+            ],
+            [
+              194,
+              1192,
+              54,
+              44
+            ],
+            [
+              425,
+              107,
+              307,
+              15
+            ],
+            [
+              83,
+              54,
+              37,
+              258
+            ]
+          ]
+        }
+      },
+      "needs_info": {
+        "n_train": 13078,
+        "n_val": 3421,
+        "n_test": 2462,
+        "test_class_counts": {
+          "no": 2099,
+          "yes": 363
+        },
+        "chosen_C": 0.5,
+        "val_macro_f1_by_C": {
+          "0.5": 0.5436,
+          "2.0": 0.5176,
+          "8.0": 0.5072
+        },
+        "test_macro_f1": 0.524,
+        "test_accuracy": 0.7827,
+        "majority_class": "no",
+        "majority_macro_f1": 0.4602,
+        "per_class": {
+          "no": {
+            "precision": 0.859,
+            "recall": 0.8914,
+            "f1": 0.8749,
+            "support": 2099
+          },
+          "yes": {
+            "precision": 0.1972,
+            "recall": 0.1543,
+            "f1": 0.1731,
+            "support": 363
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "rows_true_cols_pred": [
+            [
+              1871,
+              228
+            ],
+            [
+              307,
+              56
+            ]
+          ]
+        }
+      }
+    },
+    "in_repo": {
+      "category": {
+        "n_train": 23272,
+        "n_val": 2871,
+        "n_test": 2911,
+        "test_class_counts": {
+          "feature": 987,
+          "bug": 1025,
+          "question": 601,
+          "docs": 298
+        },
+        "chosen_C": 2.0,
+        "val_macro_f1_by_C": {
+          "0.5": 0.7882,
+          "2.0": 0.7939,
+          "8.0": 0.7925
+        },
+        "test_macro_f1": 0.7928,
+        "test_accuracy": 0.8028,
+        "majority_class": "bug",
+        "majority_macro_f1": 0.1302,
+        "per_class": {
+          "bug": {
+            "precision": 0.819,
+            "recall": 0.839,
+            "f1": 0.8289,
+            "support": 1025
+          },
+          "feature": {
+            "precision": 0.8398,
+            "recall": 0.8126,
+            "f1": 0.826,
+            "support": 987
+          },
+          "question": {
+            "precision": 0.717,
+            "recall": 0.7421,
+            "f1": 0.7294,
+            "support": 601
+          },
+          "docs": {
+            "precision": 0.8063,
+            "recall": 0.7685,
+            "f1": 0.7869,
+            "support": 298
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "bug",
+            "feature",
+            "question",
+            "docs"
+          ],
+          "rows_true_cols_pred": [
+            [
+              860,
+              62,
+              81,
+              22
+            ],
+            [
+              89,
+              802,
+              79,
+              17
+            ],
+            [
+              78,
+              61,
+              446,
+              16
+            ],
+            [
+              23,
+              30,
+              16,
+              229
+            ]
+          ]
+        }
+      },
+      "needs_info": {
+        "n_train": 15175,
+        "n_val": 1895,
+        "n_test": 1891,
+        "test_class_counts": {
+          "no": 1705,
+          "yes": 186
+        },
+        "chosen_C": 8.0,
+        "val_macro_f1_by_C": {
+          "0.5": 0.6873,
+          "2.0": 0.7118,
+          "8.0": 0.7141
+        },
+        "test_macro_f1": 0.7376,
+        "test_accuracy": 0.9069,
+        "majority_class": "no",
+        "majority_macro_f1": 0.4741,
+        "per_class": {
+          "no": {
+            "precision": 0.9484,
+            "recall": 0.9484,
+            "f1": 0.9484,
+            "support": 1705
+          },
+          "yes": {
+            "precision": 0.5269,
+            "recall": 0.5269,
+            "f1": 0.5269,
+            "support": 186
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "rows_true_cols_pred": [
+            [
+              1617,
+              88
+            ],
+            [
+              88,
+              98
+            ]
+          ]
+        }
+      }
+    }
+  }
+}
