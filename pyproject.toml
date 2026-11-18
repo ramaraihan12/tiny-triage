@@ -1,0 +1,41 @@
+[project]
+name = "tiny-triage"
+version = "0.1.0"
+description = "A small issue-triage classifier trained on maintainer labels from public GitHub repos."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Ramadhani Raihan" }]
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "pyyaml>=6.0",
+  "scipy>=1.11",
+  "scikit-learn>=1.4",
+]
+
+[project.scripts]
+tiny-triage = "tiny_triage.cli:main"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tiny_triage"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B905"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,176 @@
+# Maps each repo's own labels onto the tiny-triage scheme.
+#   category:   bug | feature | question | docs
+#   needs_info: labels that mean maintainers asked for more info / a repro
+# An issue is kept only if its labels hit exactly one category class.
+# Issues that hit two classes (for example bug and docs) are skipped as ambiguous.
+# needs_info is "yes" if any needs_info label is present, otherwise "no".
+# Label names were read from each repo's label list; a repo can leave a class out.
+repos:
+  facebook/react:
+    bug: ["Type: Bug"]
+    feature: ["Type: Feature Request", "Type: Enhancement"]
+    question: ["Type: Question"]
+    needs_info: ["Resolution: Needs More Information"]
+  vuejs/core:
+    bug: [":lady_beetle:  bug"]
+    feature: [":sparkles: feature request"]
+    docs: ["need documentation"]
+    needs_info: ["need more info"]
+  eslint/eslint:
+    bug: ["bug"]
+    feature: ["enhancement", "feature"]
+    question: ["question"]
+    docs: ["documentation"]
+    needs_info: ["needs info", "repro:needed"]
+  axios/axios:
+    bug: ["issue::bug"]
+    feature: ["issue::feature", "issue::enhancement"]
+    question: ["issue::question"]
+    docs: ["issue::documentation"]
+  mui/material-ui:
+    bug: ["type: bug"]
+    feature: ["type: new feature", "type: enhancement"]
+    question: ["support: question"]
+    docs: ["docs"]
+  sveltejs/svelte:
+    bug: ["bug"]
+    feature: ["feature request"]
+    docs: ["documentation"]
+  microsoft/TypeScript:
+    bug: ["Bug"]
+    feature: ["Suggestion"]
+    question: ["Question"]
+    docs: ["Docs"]
+    needs_info: ["Needs More Info", "Repro Requested"]
+  microsoft/vscode:
+    bug: ["bug"]
+    feature: ["feature-request"]
+    question: ["*question"]
+    needs_info: ["info-needed", "~info-needed", "repro-steps-needed"]
+  pandas-dev/pandas:
+    bug: ["Bug"]
+    feature: ["Enhancement"]
+    question: ["Usage Question"]
+    docs: ["Docs"]
+    needs_info: ["Needs Info"]
+  pallets/flask:
+    bug: ["bug"]
+    question: ["question"]
+    docs: ["docs"]
+  scikit-learn/scikit-learn:
+    bug: ["Bug"]
+    feature: ["New Feature", "Enhancement"]
+    question: ["Question"]
+    docs: ["Documentation"]
+    needs_info: ["Needs Info", "Needs Reproducible Code"]
+  pytest-dev/pytest:
+    bug: ["type: bug"]
+    feature: ["type: enhancement"]
+    question: ["type: question"]
+    docs: ["type: docs"]
+    needs_info: ["status: needs information"]
+  python-poetry/poetry:
+    bug: ["kind/bug"]
+    feature: ["kind/feature", "kind/enhancement"]
+    question: ["kind/question"]
+    needs_info: ["status/needs-reproduction", "status/waiting-on-response"]
+  pydantic/pydantic:
+    bug: ["bug V2", "bug V1"]
+    feature: ["feature request"]
+    question: ["question"]
+    docs: ["documentation"]
+  encode/httpx:
+    bug: ["bug"]
+    feature: ["enhancement"]
+    question: ["question"]
+    docs: ["docs"]
+  numpy/numpy:
+    bug: ["00 - Bug"]
+    feature: ["01 - Enhancement"]
+    question: ["33 - Question"]
+    docs: ["04 - Documentation"]
+  kubernetes/kubernetes:
+    bug: ["kind/bug"]
+    feature: ["kind/feature"]
+    question: ["kind/support"]
+    docs: ["kind/documentation"]
+    needs_info: ["triage/needs-information"]
+  gohugoio/hugo:
+    bug: ["Bug"]
+    feature: ["Enhancement"]
+    question: ["Question"]
+    docs: ["Docs"]
+  cli/cli:
+    bug: ["bug"]
+    feature: ["enhancement"]
+    docs: ["docs"]
+    needs_info: ["more-info-needed"]
+  traefik/traefik:
+    bug: ["kind/bug/confirmed", "kind/bug/possible"]
+    feature: ["kind/enhancement"]
+    question: ["kind/question"]
+    docs: ["kind/documentation"]
+    needs_info: ["contributor/need-more-information"]
+  prometheus/prometheus:
+    bug: ["kind/bug"]
+    feature: ["kind/feature", "kind/enhancement"]
+    question: ["kind/question"]
+    docs: ["component/documentation"]
+    needs_info: ["kind/more-info-needed"]
+  rust-lang/cargo:
+    bug: ["C-bug"]
+    feature: ["C-feature-request", "C-enhancement"]
+    question: ["C-question"]
+    needs_info: ["S-needs-info"]
+  tokio-rs/tokio:
+    bug: ["C-bug"]
+    feature: ["C-feature-request", "C-enhancement"]
+    question: ["C-question"]
+    docs: ["T-docs"]
+  spring-projects/spring-boot:
+    bug: ["type: bug"]
+    feature: ["type: enhancement"]
+    docs: ["type: documentation"]
+  elastic/elasticsearch:
+    bug: [">bug"]
+    feature: [">enhancement", ">feature"]
+    docs: [">docs"]
+    needs_info: ["needs:reproduction"]
+  symfony/symfony:
+    bug: ["Bug"]
+    feature: ["Feature", "Enhancement"]
+  docker/compose:
+    bug: ["kind/bug"]
+    feature: ["kind/feature"]
+    question: ["kind/question"]
+    docs: ["kind/docs"]
+  astral-sh/ruff:
+    bug: ["bug"]
+    docs: ["documentation"]
+    question: ["question"]
+    needs_info: ["needs-info"]
+  denoland/deno:
+    bug: ["bug"]
+    question: ["question"]
+    docs: ["docs"]
+    needs_info: ["needs info"]
+  huggingface/transformers:
+    bug: ["bug"]
+    feature: ["Feature request"]
+    question: ["Usage"]
+    docs: ["Documentation"]
+    needs_info: ["Need more information"]
+  apache/airflow:
+    bug: ["kind:bug"]
+    feature: ["kind:feature", "type:new-feature"]
+    docs: ["kind:documentation"]
+  pola-rs/polars:
+    bug: ["bug"]
+    feature: ["enhancement"]
+    docs: ["documentation"]
+    needs_info: ["needs repro"]
+  langchain-ai/langchain:
+    bug: ["bug"]
+    feature: ["feature request", "feature"]
+    docs: ["documentation"]
+    needs_info: ["unable-to-reproduce"]
