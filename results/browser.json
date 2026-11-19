@@ -1,0 +1,121 @@
+{
+  "note": "Aggregates only, measured in headless Chromium with onnxruntime-web (wasm, 1 thread) against native onnxruntime int8, batch 1, random test issues; no issue text.",
+  "cleaning_parity": {
+    "issues_compared": 8797,
+    "repos": "val and test",
+    "fields": [
+      "clean_body",
+      "none",
+      "filtered",
+      "full"
+    ],
+    "identical_outputs": {
+      "clean_body": 8797,
+      "none": 8797,
+      "filtered": 8797,
+      "full": 8797
+    }
+  },
+  "tokenizer": {
+    "test_issues": 600,
+    "identical_ids": 600,
+    "greek_sigma_cases": 6,
+    "greek_sigma_identical": 6
+  },
+  "wasm_int8_vs_native_int8_test_draw0": {
+    "n": 600,
+    "category_agreement": 0.9833,
+    "needs_info_agreement_at_0_5": 0.9933,
+    "needs_info_agreement_at_0_75": 0.9983
+  },
+  "wasm_vs_fp32_and_native_vs_fp32": {
+    "val_A": {
+      "n": 600,
+      "wasm_vs_fp32": {
+        "ids": 600,
+        "cat": 0.995,
+        "ni05": 0.9933,
+        "ni075": 0.9967
+      },
+      "native_int8_vs_fp32": {
+        "cat": 0.9933,
+        "ni05": 0.9967,
+        "ni075": 0.9967
+      },
+      "wasm_vs_native_int8": {
+        "ids": 600,
+        "cat": 0.9917,
+        "ni05": 0.9933,
+        "ni075": 1
+      }
+    },
+    "val_B": {
+      "n": 600,
+      "wasm_vs_fp32": {
+        "ids": 600,
+        "cat": 0.99,
+        "ni05": 0.9933,
+        "ni075": 0.995
+      },
+      "native_int8_vs_fp32": {
+        "cat": 0.9917,
+        "ni05": 0.9933,
+        "ni075": 0.9933
+      },
+      "wasm_vs_native_int8": {
+        "ids": 600,
+        "cat": 0.9883,
+        "ni05": 1,
+        "ni075": 0.9983
+      }
+    },
+    "test_A": {
+      "n": 600,
+      "wasm_vs_fp32": {
+        "ids": 600,
+        "cat": 0.99,
+        "ni05": 0.9883,
+        "ni075": 0.995
+      },
+      "native_int8_vs_fp32": {
+        "cat": 0.9833,
+        "ni05": 0.985,
+        "ni075": 0.995
+      },
+      "wasm_vs_native_int8": {
+        "ids": 600,
+        "cat": 0.9933,
+        "ni05": 0.9933,
+        "ni075": 1
+      }
+    },
+    "test_B": {
+      "n": 600,
+      "wasm_vs_fp32": {
+        "ids": 600,
+        "cat": 0.9883,
+        "ni05": 0.9833,
+        "ni075": 0.9917
+      },
+      "native_int8_vs_fp32": {
+        "cat": 0.9933,
+        "ni05": 0.9817,
+        "ni075": 0.9933
+      },
+      "wasm_vs_native_int8": {
+        "ids": 600,
+        "cat": 0.9917,
+        "ni05": 0.985,
+        "ni075": 0.9983
+      }
+    }
+  },
+  "quantization_comparison_note": "A = quint8_perchannel (shipped), B = quint8_perchannel_reduce; chosen on the 600 validation issues (val_A vs val_B)",
+  "inference_ms_per_issue_tokenizer_and_model": {
+    "n": 600,
+    "p50": 125,
+    "p95": 128.9,
+    "tokens_mean": 204.3
+  },
+  "runtime_kb_transferred_from_jsdelivr": 1937
+}

@@ -1,0 +1,40 @@
+{
+  "categories": [
+    "bug",
+    "feature",
+    "question",
+    "docs"
+  ],
+  "needs_info": [
+    "no",
+    "yes"
+  ],
+  "needs_info_positive_class": "yes",
+  "needs_info_threshold": 0.75,
+  "max_len": 256,
+  "pooling": "mean",
+  "base_model": "google/electra-small-discriminator",
+  "base_model_license": "Apache-2.0",
+  "inputs": [
+    "input_ids",
+    "attention_mask"
+  ],
+  "outputs": [
+    "category_logits",
+    "needs_info_logits"
+  ],
+  "quantization": {
+    "chosen": "quint8_perchannel",
+    "weight_type": "QUInt8",
+    "per_channel": true,
+    "chosen_on": "validation: agreement with the fp32 ONNX model, 0.987 on category",
+    "runtime": "onnxruntime-web wasm, one thread"
+  },
+  "cleaning": {
+    "variant": "none",
+    "steps": "clean_body, then drop_lines with the list (if any), then title + body cut to max_body_chars; see docs/js/clean.js",
+    "max_body_chars": 2000,
+    "boilerplate": null,
+    "chosen_on": "validation, see results/demo.md"
+  }
+}

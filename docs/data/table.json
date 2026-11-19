@@ -1,0 +1,1140 @@
+{
+  "n": 50,
+  "seed": 0,
+  "method": "test split, stratified by (repo, category): 2 per stratum, remaining places from randomly chosen strata with issues left",
+  "cleaning": "none",
+  "llama_model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "needs_info_thresholds": {
+    "tiny-triage": 0.75,
+    "baseline": 0.5
+  },
+  "rows": [
+    {
+      "repo": "cli/cli",
+      "number": 1589,
+      "url": "https://github.com/cli/cli/issues/1589",
+      "title": "Update instances of \"brew install github/gh/gh\" to \"brew install gh\"",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "docs",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "cli/cli",
+      "number": 1729,
+      "url": "https://github.com/cli/cli/issues/1729",
+      "title": "Linux installation instruction issues",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "cli/cli",
+      "number": 7508,
+      "url": "https://github.com/cli/cli/issues/7508",
+      "title": "Adding `--copy-url` flag to the `gh repo create` command",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": "yes"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "cli/cli",
+      "number": 9923,
+      "url": "https://github.com/cli/cli/issues/9923",
+      "title": "gh search --draft <bool>",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": "yes"
+      },
+      "baseline": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "cli/cli",
+      "number": 11256,
+      "url": "https://github.com/cli/cli/issues/11256",
+      "title": "while using `gh pr checkout [pr-id]` was getting panic: runtime error: invalid memory address or nil pointer dereference",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": "yes"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "yes"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "cli/cli",
+      "number": 12183,
+      "url": "https://github.com/cli/cli/issues/12183",
+      "title": "When the branch name contains \"/\", gh pr create --web opened an invalid comparison page.",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "cli/cli",
+      "number": 12910,
+      "url": "https://github.com/cli/cli/issues/12910",
+      "title": "Bugged out",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "yes"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "yes"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "number": 110649,
+      "url": "https://github.com/elastic/elasticsearch/issues/110649",
+      "title": "Add support for non-grouping aggregations on aggregate_metric_double field in es|ql",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "number": 125019,
+      "url": "https://github.com/elastic/elasticsearch/issues/125019",
+      "title": "Explore GPU accelerated vector search with cuVS",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "number": 155533,
+      "url": "https://github.com/elastic/elasticsearch/issues/155533",
+      "title": "Roaring bitmaps for numeric fields",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "number": 155622,
+      "url": "https://github.com/elastic/elasticsearch/issues/155622",
+      "title": "Update elastic/elasticsearch Github page",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "number": 158269,
+      "url": "https://github.com/elastic/elasticsearch/issues/158269",
+      "title": "ES|QL docs: document query settings \u2014 where they can be set, and the precedence order",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "docs",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "number": 158577,
+      "url": "https://github.com/elastic/elasticsearch/issues/158577",
+      "title": "ES|QL test suite deletes generated function docs (muted tests, snapshot-only functions)",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "number": 164850,
+      "url": "https://github.com/elastic/elasticsearch/issues/164850",
+      "title": "GET _transform/_all?size=0 doesn't terminate",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "number": 166276,
+      "url": "https://github.com/elastic/elasticsearch/issues/166276",
+      "title": "Get async search relayed to another node reads the whole response without memory accounting",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 114,
+      "url": "https://github.com/encode/httpx/issues/114",
+      "title": "Design Multipart helper to stream by default",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 381,
+      "url": "https://github.com/encode/httpx/issues/381",
+      "title": "HTTP/2 connections are closed without responding to pings",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 551,
+      "url": "https://github.com/encode/httpx/issues/551",
+      "title": "Write error on HTTP/2: \"AssertionError: assert waiter is None or waiter.cancelled()\"",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "yes"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 777,
+      "url": "https://github.com/encode/httpx/issues/777",
+      "title": "Support for multiple files per POST field",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 841,
+      "url": "https://github.com/encode/httpx/issues/841",
+      "title": "HTTP/2 higher number of timeouts compared with 1.1",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 956,
+      "url": "https://github.com/encode/httpx/issues/956",
+      "title": "Empty default headers?",
+      "maintainer": {
+        "category": "question",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "question",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 1415,
+      "url": "https://github.com/encode/httpx/issues/1415",
+      "title": "Unable to call a url using httpx",
+      "maintainer": {
+        "category": "question",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "yes"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 1441,
+      "url": "https://github.com/encode/httpx/issues/1441",
+      "title": "Document solution for startup/shutdown of ASGI apps",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "docs",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 2892,
+      "url": "https://github.com/encode/httpx/issues/2892",
+      "title": "Constrain which encodings are supported by `response.text`.",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "encode/httpx",
+      "number": 3355,
+      "url": "https://github.com/encode/httpx/issues/3355",
+      "title": "Improve docstring structuring for code autocompletion.",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 255639,
+      "url": "https://github.com/microsoft/vscode/issues/255639",
+      "title": "Suggested edits",
+      "maintainer": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 263614,
+      "url": "https://github.com/microsoft/vscode/issues/263614",
+      "title": "cant use streamlit, also interpreter issue",
+      "maintainer": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "yes"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "yes"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 299481,
+      "url": "https://github.com/microsoft/vscode/issues/299481",
+      "title": "Refactor the Webpack Documentation Blog Page",
+      "maintainer": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "yes"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 335422,
+      "url": "https://github.com/microsoft/vscode/issues/335422",
+      "title": "Format AI credit amounts with locale-aware digit grouping",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 342692,
+      "url": "https://github.com/microsoft/vscode/issues/342692",
+      "title": "Use a trophy icon for the Compare Models toggle",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 345472,
+      "url": "https://github.com/microsoft/vscode/issues/345472",
+      "title": "Agents: SSH host whose first connection fails is saved anyway, and its draft ignores Enter",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 345638,
+      "url": "https://github.com/microsoft/vscode/issues/345638",
+      "title": "Agents: new-session composer defaults to Cloud on first launch, so Open Folder fails",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 346588,
+      "url": "https://github.com/microsoft/vscode/issues/346588",
+      "title": "Support Judge and Synthesizer for chat-only agent comparisons",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "microsoft/vscode",
+      "number": 346833,
+      "url": "https://github.com/microsoft/vscode/issues/346833",
+      "title": "Agents window: \"Open Agents Window\" from an editor on a local folder selects Cloud instead of This Computer",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pallets/flask",
+      "number": 1124,
+      "url": "https://github.com/pallets/flask/issues/1124",
+      "title": "CLI: \"flask\" command help doesn't list custom commands",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "pallets/flask",
+      "number": 1135,
+      "url": "https://github.com/pallets/flask/issues/1135",
+      "title": "Deprecate flask.ext and create migration tool to flask_*",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pallets/flask",
+      "number": 1169,
+      "url": "https://github.com/pallets/flask/issues/1169",
+      "title": "BUG in \"send_file\" and \"send_from_directory\"",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "yes"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "pallets/flask",
+      "number": 1345,
+      "url": "https://github.com/pallets/flask/issues/1345",
+      "title": "flask.send_file gives bad security advice",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "docs",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pallets/flask",
+      "number": 2033,
+      "url": "https://github.com/pallets/flask/issues/2033",
+      "title": "failing test for safe_join in windows",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "question",
+        "needs_info": "yes"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "yes"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pallets/flask",
+      "number": 3837,
+      "url": "https://github.com/pallets/flask/issues/3837",
+      "title": "flask.abort() documentation broken",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "docs",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 1855,
+      "url": "https://github.com/pydantic/pydantic/issues/1855",
+      "title": "Access pydantic models for code generation to other languages",
+      "maintainer": {
+        "category": "question",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "question",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 2087,
+      "url": "https://github.com/pydantic/pydantic/issues/2087",
+      "title": "Mapping Pydantic JSON schema to SQLAlchemy's Postgres JSON field",
+      "maintainer": {
+        "category": "question",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "yes"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "yes"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "yes"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 8234,
+      "url": "https://github.com/pydantic/pydantic/issues/8234",
+      "title": "Add examples for custom serializers in API docs",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "docs",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 8438,
+      "url": "https://github.com/pydantic/pydantic/issues/8438",
+      "title": "Inconsistent JSON serialization of None keys (\"None\" instead of \"null\")",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 9849,
+      "url": "https://github.com/pydantic/pydantic/issues/9849",
+      "title": "Support array length specification in model_json_schema",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "feature",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 10089,
+      "url": "https://github.com/pydantic/pydantic/issues/10089",
+      "title": "New type for attachable properties ",
+      "maintainer": {
+        "category": "feature",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "question",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "feature",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 11491,
+      "url": "https://github.com/pydantic/pydantic/issues/11491",
+      "title": "Rewrite serialization conceptual docs",
+      "maintainer": {
+        "category": "docs",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "docs",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "docs",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 12685,
+      "url": "https://github.com/pydantic/pydantic/issues/12685",
+      "title": "pydantic-core source code is missing from the Codecov report",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 13089,
+      "url": "https://github.com/pydantic/pydantic/issues/13089",
+      "title": "Decimal JSON schema pattern rejects pydantic's own scientific notation serialization output (v2.12 regression)",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "number": 13845,
+      "url": "https://github.com/pydantic/pydantic/issues/13845",
+      "title": "JSON schema ignores propagated config for stdlib dataclasses (`extra='forbid'` validates but no `additionalProperties: false`)",
+      "maintainer": {
+        "category": "bug",
+        "needs_info": null
+      },
+      "baseline": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "model": {
+        "category": "bug",
+        "needs_info": "no"
+      },
+      "llama": {
+        "category": "bug",
+        "needs_info": "no"
+      }
+    }
+  ],
+  "summary": {
+    "majority": {
+      "category": {
+        "class": "bug",
+        "count": 17
+      },
+      "needs_info": {
+        "class": "no",
+        "count": 21
+      }
+    },
+    "category": {
+      "baseline": 31,
+      "model": 38,
+      "llama": 38
+    },
+    "needs_info": {
+      "n": 24,
+      "baseline": 18,
+      "model": 20,
+      "llama": 18
+    },
+    "llama_unparsed": {
+      "category": 0,
+      "needs_info": 0
+    }
+  }
+}

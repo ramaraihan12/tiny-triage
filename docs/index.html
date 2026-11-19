@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tiny-triage: issue triage in your browser</title>
+<meta name="description" content="A 14M-parameter classifier trained on what maintainers of 33 public repos actually did with their issues. Runs in the browser.">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "@huggingface/transformers": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/transformers.web.min.js",
+    "onnxruntime-web": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0-dev.20250409-89f8206ba4/dist/ort.wasm.min.mjs",
+    "onnxruntime-common": "./js/ort-common.js"
+  }
+}
+</script>
+</head>
+<body>
+<header class="wrap">
+  <p class="eyebrow"><a href="https://github.com/ramaraihan12/tiny-triage">ramaraihan12/tiny-triage</a></p>
+  <h1>tiny-triage</h1>
+  <p class="lede">A small classifier that reads a GitHub issue and says whether it is a bug, a feature request, a question or a docs problem, and whether the maintainers would probably ask for more information. It runs in your browser: the issue text never leaves this page.</p>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="what">
+    <h2 id="what">What it is</h2>
+    <p>An ELECTRA-small encoder (14M parameters, 14 MB after int8 quantization) fine-tuned on the labels maintainers of <span data-s="repos_total"></span> public repos put on their own issues. It was trained on <span data-s="repos_train"></span> repos, tuned on <span data-s="repos_val"></span> and tested on <span data-s="repos_test"></span> repos it never saw, so the numbers below say something about a new project, not just about projects it memorised.</p>
+    <div class="cards" id="headline" aria-label="Headline results on the six unseen test repos">
+      <div class="card">
+        <h3>category</h3>
+        <p class="big"><span data-s="cat_model"></span></p>
+        <p class="sub">macro-F1 on <span data-s="n_cat"></span> test issues, TF-IDF baseline <span data-s="cat_base"></span>, always guessing the most common class <span data-s="cat_major"></span>. The gap to the baseline is <span data-s="cat_diff"></span> (95% CI <span data-s="cat_ci"></span>).</p>
+      </div>
+      <div class="card">
+        <h3>needs_info <span class="badge">experimental</span></h3>
+        <p class="big"><span data-s="ni_model"></span></p>
+        <p class="sub">macro-F1 on <span data-s="n_ni"></span> test issues at the demo's threshold (<span data-s="thr"></span>), against <span data-s="ni_base"></span> for the TF-IDF baseline with its own tuned threshold. At the default 0.5 it is <span data-s="ni_model_default"></span> against <span data-s="ni_base_default"></span>. On repos it has not seen, this output is worse than the baseline (the gap is <span data-s="ni_diff"></span>, 95% CI <span data-s="ni_ci"></span>), so treat it as a hint.</p>
+      </div>
+    </div>
+    <p class="note">Macro-F1 averages the per-class F1 scores, so rare classes count as much as common ones. The model and baseline numbers are on the same text; the test set is six repos, so the confidence interval resamples issues only and is too tight for a new repo. This page runs the int8 model on text cleaned the way the demo does it, which scores category <span data-s="demo_cat_model"></span> against <span data-s="demo_cat_base"></span> for the baseline and needs_info <span data-s="demo_ni_model"></span> against <span data-s="demo_ni_base"></span> on the same test issues. <a href="https://github.com/ramaraihan12/tiny-triage#readme">Method and caveats are in the README.</a></p>
+  </section>
+
+  <section aria-labelledby="live">
+    <h2 id="live">Try it</h2>
+    <p>Paste an issue, or paste the URL of a public GitHub issue and the page fetches it from <code>api.github.com</code> with no token (GitHub allows 60 such requests an hour per IP address).</p>
+    <form id="form" autocomplete="off" novalidate>
+      <div class="field">
+        <label for="url">GitHub issue URL (optional)</label>
+        <div class="row">
+          <input id="url" type="url" inputmode="url" placeholder="https://github.com/owner/repo/issues/123">
+          <button type="button" id="fetch" class="secondary">Fetch</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="title">Title</label>
+        <input id="title" type="text" maxlength="300">
+      </div>
+      <div class="field">
+        <label for="body">Body</label>
+        <textarea id="body" rows="8" spellcheck="false"></textarea>
+      </div>
+      <div class="actions">
+        <button type="submit" id="run"></button>
+        <button type="button" id="example" class="secondary">Fill in an example</button>
+      </div>
+      <p class="hint" id="loadhint"></p>
+      <progress id="progress" max="1" value="0" hidden aria-label="Model download"></progress>
+    </form>
+    <p id="msg" class="msg" role="status" aria-live="polite" hidden></p>
+
+    <div id="result" class="result" aria-live="polite" hidden>
+      <div class="result-grid">
+        <div>
+          <h3>Category</h3>
+          <p class="verdict" id="r-cat"></p>
+          <ul class="bars" id="r-bars"></ul>
+        </div>
+        <div>
+          <h3>needs_info <span class="badge">experimental</span></h3>
+          <p class="verdict" id="r-ni"></p>
+          <p class="sub" id="r-ni-p"></p>
+          <p class="sub">On repos it has not seen, needs_info is worse than the TF-IDF baseline. It is a hint about whether a maintainer would ask for details, nothing more.</p>
+        </div>
+      </div>
+      <p class="timing" id="r-time"></p>
+      <details>
+        <summary>Text the model saw</summary>
+        <pre id="r-text"></pre>
+      </details>
+    </div>
+  </section>
+
+  <section aria-labelledby="table-h">
+    <h2 id="table-h">50 test issues, three systems</h2>
+    <p>A fixed random sample of 50 issues from the six test repos (stratified by repo and category, <span data-s="seed"></span>), each compared with what the maintainers did. The model and the baseline saw the same cleaned text; Llama 3.3 got that text too, with the prompt from my <a href="https://github.com/ramaraihan12/issue-triage-action">issue-triage-action</a>. Only titles and links are shown; the issue bodies are not published.</p>
+    <p class="note" id="table-summary"></p>
+    <div class="filters">
+      <label for="f-repo">Repo</label>
+      <select id="f-repo"><option value="">all</option></select>
+      <label class="check"><input type="checkbox" id="f-diff"> only where a system disagrees with the maintainer</label>
+    </div>
+    <table id="table">
+      <caption class="sr">50 test issues with maintainer labels and predictions of three systems</caption>
+      <thead>
+        <tr>
+          <th scope="col" data-sort="issue">Issue</th>
+          <th scope="col" data-sort="maintainer">Maintainer</th>
+          <th scope="col" data-sort="baseline">TF-IDF</th>
+          <th scope="col" data-sort="model">tiny-triage</th>
+          <th scope="col" data-sort="llama">Llama 3.3 <span class="built">Built with Llama</span></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p class="note">Each cell is category / needs_info. Green means it matches the maintainer, red means it does not. needs_info is only scored where the repo has such a label; httpx, flask and pydantic do not, so the maintainer column shows no needs_info for them. 50 issues is a small sample: a difference of a few issues between systems is noise.</p>
+  </section>
+
+  <section aria-labelledby="limits">
+    <h2 id="limits">Limits</h2>
+    <ul>
+      <li>Labels come from large, active, mostly English-language projects with issue forms. A small repo with other habits may behave differently.</li>
+      <li><code>question</code> is the weakest class; many of them look like bug reports.</li>
+      <li>The category numbers are on six repos. Per repo they range from about 0.4 to 0.7 macro-F1.</li>
+      <li>The model was trained on text where each repo's own template lines had been removed. This page removes comments, long code, links and checklists but no template lines, so issues that carry a form template reach the model with the template headings still in. On the test repos that made no measurable difference.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p class="built-footer">Built with Llama. The Llama column uses Llama 3.3 70B Instruct through Cloudflare Workers AI; Llama 3.3 is licensed under the <a href="https://www.llama.com/llama3_3/license/">Llama 3.3 Community License</a>, Copyright &copy; Meta Platforms, Inc.</p>
+  <p>Model weights fine-tuned from <a href="https://huggingface.co/google/electra-small-discriminator">google/electra-small-discriminator</a>, Apache-2.0. The files in <a href="https://github.com/ramaraihan12/tiny-triage/tree/main/docs/model"><code>docs/model/</code></a> are Apache-2.0 (<a href="model/LICENSE">license</a>, <a href="model/README.md">model card</a>); the rest of the code is MIT. Runs with <a href="https://github.com/huggingface/transformers.js">transformers.js</a> and <a href="https://onnxruntime.ai">ONNX Runtime Web</a> from jsDelivr.</p>
+  <p><a href="https://github.com/ramaraihan12/tiny-triage">Source and write-up on GitHub</a></p>
+</footer>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

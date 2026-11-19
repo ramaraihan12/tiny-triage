@@ -1,0 +1,46 @@
+{
+  "source": "results/finetune.json, results/baseline.json, results/demo.json",
+  "repos": {
+    "total": 33,
+    "train": 22,
+    "val": 5,
+    "test": 6
+  },
+  "issues_total": 29054,
+  "test": {
+    "n_category": 4245,
+    "n_needs_info": 2462,
+    "category": {
+      "model": 0.7136,
+      "baseline": 0.6309,
+      "majority": 0.1289,
+      "diff": 0.0827,
+      "ci_low": 0.0665,
+      "ci_high": 0.099
+    },
+    "needs_info": {
+      "model": 0.4769,
+      "baseline": 0.5494,
+      "model_default": 0.5244,
+      "baseline_default": 0.524,
+      "majority": 0.4602,
+      "diff": -0.0724,
+      "ci_low": -0.0967,
+      "ci_high": -0.048
+    }
+  },
+  "demo": {
+    "cleaning": "none",
+    "category": {
+      "model": 0.73,
+      "baseline": 0.6514
+    },
+    "needs_info": {
+      "model": 0.5119,
+      "baseline": 0.5387
+    }
+  },
+  "needs_info_threshold": 0.75,
+  "model_mb": 14.2,
+  "download_mb": 17
+}
