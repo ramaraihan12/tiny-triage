@@ -1,6 +1,6 @@
 # tiny-triage
 
-A tiny issue classifier trained on what maintainers of real projects actually did: which label they put on an issue, and whether they asked for more information. Everything here is milestone M1: the dataset and an honest baseline. There is no neural model yet.
+A tiny issue classifier trained on what maintainers of real projects actually did: which label they put on an issue, and whether they asked for more information. Milestone M1 is the dataset and an honest TF-IDF baseline; milestone M2 fine-tunes a small encoder and compares it with that baseline. The browser demo (M3) is not built yet.
 
 Small sibling of [issue-triage-action](https://github.com/ramaraihan12/issue-triage-action), the GitHub Action that triages new issues with an LLM.
 
@@ -10,9 +10,9 @@ Triage costs maintainer time. The routine part is mostly "is this a bug, a featu
 
 The plan for the whole project:
 
-1. M1 (this repo now): dataset from public repos, plus a plain TF-IDF baseline so I know what "better than nothing" means.
-2. M2: fine-tune a small Apache-2.0 encoder locally on the same split and compare it with the baseline.
-3. M3: export it and run it in the browser as a demo.
+1. M1 (done): dataset from public repos, plus a plain TF-IDF baseline so I know what "better than nothing" means.
+2. M2 (done, below): fine-tune a small Apache-2.0 encoder locally on the same split, compare it with the baseline, export it to ONNX.
+3. M3: run it in the browser as a demo.
 
 ## Labels
 
@@ -99,6 +99,36 @@ What I take from it:
 - `question` is the weak class. Half of them are predicted as `bug`, which is what a stack trace and "it doesn't work" look like in both.
 - `needs_info` barely carries over: the `yes` class has F1 0.17 on unseen repos, against 0.53 in-repo. Whether a maintainer asks for more info depends a lot on the project's habits. The 0.52 macro-F1 is mostly the `no` class.
 
+## M2: fine-tuned encoder
+
+I fine-tuned three small Apache-2.0 encoders on the same repo-disjoint split: `google/electra-small-discriminator` (14M parameters), `sentence-transformers/all-MiniLM-L12-v2` (33M) and `ibm-granite/granite-embedding-30m-english` (30M). Each is the encoder, mean pooling over the tokens, and two linear heads (category and needs_info), trained together with class-balanced cross-entropy; needs_info is left out of the loss where the label is undefined. Plain PyTorch, fp16, batch 32, 256 tokens, AdamW, a fixed learning rate per model (1e-4 for electra-small, 5e-5 for the others, not tuned), at most 4 epochs with early stopping on validation.
+
+Choosing: one seed per candidate, scored on the validation repos only (mean of the two macro-F1 scores, with the needs_info threshold on P(yes) tuned on validation). electra-small won with 0.680, but MiniLM was at 0.678, so that pick is a coin flip: MiniLM is better on category and electra on needs_info. Test was never looked at for the losers. The winner was then trained with two more seeds (0, 1, 2 in all) and the exported model is the seed with the best validation score (seed 2). No run improved after epoch 2.
+
+Test, repo-disjoint split (macro-F1; the first row is the M1 baseline again, reproduced exactly):
+
+| | category | needs_info, threshold 0.5 | needs_info, val-tuned threshold |
+|---|---|---|---|
+| TF-IDF + LR | 0.631 | 0.524 | 0.549 |
+| electra-small, mean ± std over 3 seeds | **0.700 ± 0.012** | 0.520 ± 0.019 | 0.498 ± 0.019 |
+| electra-small, exported seed | **0.714** | 0.524 | 0.477 |
+
+The plain summary: it beats TF-IDF on category and does not on needs_info. Paired issue-level bootstrap (10,000 resamples) for the exported seed minus the baseline: category +0.083 (95% CI +0.067 to +0.099); needs_info -0.072 (CI -0.097 to -0.048) when both use a val-tuned threshold, and -0.047 (CI -0.070 to -0.025) against the baseline at 0.5. These intervals resample issues only. The test set is six repos, so repo-to-repo variance is not in them, and they are too tight for a new repo.
+
+The val-tuned needs_info threshold does not transfer: it was 0.46, 0.68 and 0.75 for the three seeds, and for the exported seed it is worse on test than 0.5. Category is better than the baseline in four of the six test repos (cli, vscode, pydantic, flask) and about equal in the other two. needs_info is worse in cli and elasticsearch and level in vscode. Per-repo tables are in [results/finetune.md](results/finetune.md).
+
+Deploy-time cleaning: M1 removes template lines using statistics over each repo's own issues, which a pasted issue in a demo cannot do. I froze a list of template lines from the train repos only and rebuilt the validation and test text with it. Same models, only the inference text changes: category 0.714 to 0.724 and needs_info 0.524 to 0.505 for the encoder, 0.631 to 0.652 and 0.524 to 0.516 for TF-IDF. The encoder was trained on M1 text, so this is a train/inference mismatch; retraining TF-IDF on text cleaned the same way gives 0.651 and 0.517. So the frozen list costs nothing on category here. That list still contains some non-template lines and has to be filtered before it ships, so I have not published it.
+
+Export: the exported model is one ONNX file (opset 17, inputs `input_ids` and `attention_mask`, outputs `category_logits` and `needs_info_logits`), 54 MB in fp32 and 14 MB after int8 dynamic quantization. Quantization needed care. Per-channel signed int8 weights collapsed the category head to one class (val agreement with fp32 of 0.14), so I compared 11 settings on validation and picked unsigned per-channel weights. The int8 model agrees with fp32 on 98.0% of test category predictions and 98.7% of needs_info predictions, and its macro-F1 differs by less than 0.004 on both outputs. On one CPU thread, tokenizer plus onnxruntime takes about 46 ms per issue (p95 52 ms) for int8, against 58 ms for fp32. That was measured with onnxruntime on a laptop CPU; I still have to check it in the browser in M3. The weights are not in this repo yet.
+
+Reproduce (needs a GPU with torch 2.2 and CUDA preinstalled; see [requirements-train.txt](requirements-train.txt)):
+
+```bash
+python -m tiny_triage.finetune all --data ./data-local --runs ./runs --artifacts ./artifacts --baseline-python path/to/uv-env/python
+```
+
+The baseline stage runs in the project's own environment because torch 2.2 needs numpy below 2, which shifts the logistic regression slightly (category 0.634 instead of 0.631). Results go to `results/finetune.json`, `results/finetune.md` and `results/test_predictions.csv` (per-issue predictions and probabilities, no text).
+
 ## Label noise I saw
 
 Maintainer labels are real but not clean. Examples, by repo and issue number only:
@@ -119,10 +149,11 @@ Maintainer labels are real but not clean. Examples, by repo and issue number onl
 - The test set is six repos. Three of them define `needs_info`, so that number is shaky.
 - The baseline does not use the repo's templates, comments or author history. A real tool might.
 - I have not compared with the LLM in issue-triage-action on this data yet.
+- The encoder numbers are one training recipe with one fixed learning rate per model; a longer search could move them.
 
 ## Next
 
-Fine-tune a small Apache-2.0 encoder locally on the same repo-disjoint split, compare it with these numbers, and only then think about a browser demo. If it does not clearly beat TF-IDF on unseen repos, I will say so here.
+M3: run the exported model in the browser with onnxruntime-web, check that the int8 file behaves the same there, and decide how to handle the needs_info output, which does not beat TF-IDF yet.
 
 ## Development
 
@@ -131,6 +162,6 @@ uv sync
 uv run ruff check . && uv run pytest
 ```
 
-Tests use no network. CI runs the same two commands.
+Tests use no network and do not need torch. CI runs the same two commands (plus `ruff format --check`).
 
 MIT licence. The code and the manifest are mine; issue text belongs to its authors and stays out of this repo.

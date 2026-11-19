@@ -1,0 +1,457 @@
+{
+  "smoke": false,
+  "candidates": [
+    {
+      "name": "electra-small",
+      "model_id": "google/electra-small-discriminator",
+      "seed": 0,
+      "lr": 0.0001,
+      "best_epoch": 1,
+      "epochs_run": 2,
+      "train_seconds": 148.5,
+      "val_category_f1": 0.7121,
+      "val_needs_info_f1": 0.6479,
+      "threshold": 0.46,
+      "val_score": 0.68
+    },
+    {
+      "name": "minilm-l12",
+      "model_id": "sentence-transformers/all-MiniLM-L12-v2",
+      "seed": 0,
+      "lr": 5e-05,
+      "best_epoch": 1,
+      "epochs_run": 2,
+      "train_seconds": 217.6,
+      "val_category_f1": 0.7456,
+      "val_needs_info_f1": 0.611,
+      "threshold": 0.25,
+      "val_score": 0.6783
+    },
+    {
+      "name": "granite-30m",
+      "model_id": "ibm-granite/granite-embedding-30m-english",
+      "seed": 0,
+      "lr": 5e-05,
+      "best_epoch": 1,
+      "epochs_run": 2,
+      "train_seconds": 119.4,
+      "val_category_f1": 0.7431,
+      "val_needs_info_f1": 0.52,
+      "threshold": 0.32,
+      "val_score": 0.6315
+    }
+  ],
+  "chosen": "electra-small",
+  "base_model": "google/electra-small-discriminator",
+  "license": "Apache-2.0",
+  "exported_seed": 2,
+  "seeds": [
+    {
+      "seed": 0,
+      "val_score": 0.68,
+      "threshold": 0.46,
+      "best_epoch": 1,
+      "epochs_run": 2,
+      "test_category_f1": 0.6905,
+      "test_needs_info_default_f1": 0.4997,
+      "test_needs_info_tuned_f1": 0.5079
+    },
+    {
+      "seed": 1,
+      "val_score": 0.7015,
+      "threshold": 0.68,
+      "best_epoch": 2,
+      "epochs_run": 3,
+      "test_category_f1": 0.6958,
+      "test_needs_info_default_f1": 0.5372,
+      "test_needs_info_tuned_f1": 0.5099
+    },
+    {
+      "seed": 2,
+      "val_score": 0.7046,
+      "threshold": 0.75,
+      "best_epoch": 1,
+      "epochs_run": 2,
+      "test_category_f1": 0.7136,
+      "test_needs_info_default_f1": 0.5244,
+      "test_needs_info_tuned_f1": 0.4769
+    }
+  ],
+  "test": {
+    "n_category": 4245,
+    "n_needs_info": 2462,
+    "baseline": {
+      "category": 0.6309,
+      "needs_info_default": 0.524,
+      "needs_info_tuned": 0.5494,
+      "threshold": 0.44,
+      "tuned_C": 0.5,
+      "val_needs_info_f1_tuned": 0.5549,
+      "reproduces_m1": {
+        "category": true,
+        "needs_info": true
+      }
+    },
+    "model_mean": {
+      "category": {
+        "mean": 0.7,
+        "std": 0.0121,
+        "values": [
+          0.6905,
+          0.6958,
+          0.7136
+        ]
+      },
+      "needs_info_default": {
+        "mean": 0.5204,
+        "std": 0.019,
+        "values": [
+          0.4997,
+          0.5372,
+          0.5244
+        ]
+      },
+      "needs_info_tuned": {
+        "mean": 0.4982,
+        "std": 0.0185,
+        "values": [
+          0.5079,
+          0.5099,
+          0.4769
+        ]
+      }
+    },
+    "model_exported": {
+      "category": 0.7136,
+      "needs_info_default": 0.5244,
+      "needs_info_tuned": 0.4769,
+      "threshold": 0.75
+    }
+  },
+  "bootstrap": {
+    "category": {
+      "diff": 0.0827,
+      "ci_low": 0.0665,
+      "ci_high": 0.099,
+      "n": 4245,
+      "n_boot": 10000,
+      "level": "issue (repos are not resampled; the test set has few repos)"
+    },
+    "needs_info_vs_baseline_tuned": {
+      "diff": -0.0724,
+      "ci_low": -0.0967,
+      "ci_high": -0.048,
+      "n": 2462,
+      "n_boot": 10000,
+      "level": "issue (repos are not resampled; the test set has few repos)"
+    },
+    "needs_info_vs_baseline_default": {
+      "diff": -0.0471,
+      "ci_low": -0.0698,
+      "ci_high": -0.0247,
+      "n": 2462,
+      "n_boot": 10000,
+      "level": "issue (repos are not resampled; the test set has few repos)"
+    }
+  },
+  "per_repo": [
+    {
+      "repo": "cli/cli",
+      "n": 870,
+      "category_baseline": 0.4885,
+      "category_model": 0.527,
+      "n_needs_info": 870,
+      "needs_info_baseline_default": 0.4803,
+      "needs_info_baseline_tuned": 0.5437,
+      "needs_info_model": 0.4122
+    },
+    {
+      "repo": "elastic/elasticsearch",
+      "n": 392,
+      "category_baseline": 0.588,
+      "category_model": 0.5903,
+      "n_needs_info": 392,
+      "needs_info_baseline_default": 0.602,
+      "needs_info_baseline_tuned": 0.7662,
+      "needs_info_model": 0.5451
+    },
+    {
+      "repo": "encode/httpx",
+      "n": 275,
+      "category_baseline": 0.6965,
+      "category_model": 0.694,
+      "n_needs_info": 0,
+      "needs_info_baseline_default": null,
+      "needs_info_baseline_tuned": null,
+      "needs_info_model": null
+    },
+    {
+      "repo": "microsoft/vscode",
+      "n": 1200,
+      "category_baseline": 0.4404,
+      "category_model": 0.5602,
+      "n_needs_info": 1200,
+      "needs_info_baseline_default": 0.5344,
+      "needs_info_baseline_tuned": 0.5108,
+      "needs_info_model": 0.5147
+    },
+    {
+      "repo": "pallets/flask",
+      "n": 201,
+      "category_baseline": 0.3475,
+      "category_model": 0.3865,
+      "n_needs_info": 0,
+      "needs_info_baseline_default": null,
+      "needs_info_baseline_tuned": null,
+      "needs_info_model": null
+    },
+    {
+      "repo": "pydantic/pydantic",
+      "n": 1307,
+      "category_baseline": 0.6152,
+      "category_model": 0.6806,
+      "n_needs_info": 0,
+      "needs_info_baseline_default": null,
+      "needs_info_baseline_tuned": null,
+      "needs_info_model": null
+    }
+  ],
+  "deploy_time": {
+    "n_train_repos": 22,
+    "n_frozen_lines": 549,
+    "rows": [
+      [
+        "baseline, test",
+        "M1 text",
+        {
+          "category": 0.6309,
+          "needs_info_default": 0.524,
+          "needs_info_tuned": 0.5494
+        }
+      ],
+      [
+        "baseline, test",
+        "frozen list at inference only",
+        {
+          "category": 0.6522,
+          "needs_info_default": 0.5163,
+          "needs_info_tuned": 0.5401
+        }
+      ],
+      [
+        "baseline refit, test",
+        "frozen list in train and test",
+        {
+          "category": 0.6505,
+          "needs_info_default": 0.5166,
+          "needs_info_tuned": 0.5569
+        }
+      ],
+      [
+        "model, test",
+        "M1 text",
+        {
+          "category": 0.7136,
+          "needs_info_default": 0.5244,
+          "needs_info_tuned": 0.4769
+        }
+      ],
+      [
+        "model, test",
+        "frozen list at inference only",
+        {
+          "category": 0.7242,
+          "needs_info_default": 0.505,
+          "needs_info_tuned": 0.4772
+        }
+      ],
+      [
+        "baseline, val",
+        "M1 text",
+        {
+          "category": 0.6562,
+          "needs_info_default": 0.5436,
+          "needs_info_tuned": 0.5549
+        }
+      ],
+      [
+        "baseline, val",
+        "frozen list at inference only",
+        {
+          "category": 0.6809,
+          "needs_info_default": 0.5553,
+          "needs_info_tuned": 0.5595
+        }
+      ],
+      [
+        "model, val",
+        "frozen list at inference only",
+        {
+          "category": 0.6937,
+          "needs_info_default": 0.6008,
+          "needs_info_tuned": 0.7126
+        }
+      ]
+    ],
+    "note": "encoder trained on M1 text; thresholds and C chosen on M1 val text and kept"
+  },
+  "export": {
+    "fp32_mb": 54.2,
+    "quant": {
+      "rule": "mean of val argmax agreement (category), needs_info argmax agreement and needs_info agreement at the threshold, vs fp32 ONNX; size <= 50.0 MB",
+      "configs": [
+        {
+          "config": "qint8",
+          "size_mb": 14.1,
+          "category": 0.9708,
+          "needs_info_argmax": 0.978,
+          "needs_info_threshold": 0.9934
+        },
+        {
+          "config": "qint8_reduce",
+          "size_mb": 14.1,
+          "category": 0.9396,
+          "needs_info_argmax": 0.9547,
+          "needs_info_threshold": 0.9892
+        },
+        {
+          "config": "qint8_perchannel",
+          "size_mb": 14.2,
+          "category": 0.1437,
+          "needs_info_argmax": 0.8157,
+          "needs_info_threshold": 0.9359
+        },
+        {
+          "config": "qint8_perchannel_reduce",
+          "size_mb": 14.2,
+          "category": 0.9848,
+          "needs_info_argmax": 0.9886,
+          "needs_info_threshold": 0.9914
+        },
+        {
+          "config": "quint8",
+          "size_mb": 14.1,
+          "category": 0.9829,
+          "needs_info_argmax": 0.9793,
+          "needs_info_threshold": 0.9901
+        },
+        {
+          "config": "quint8_reduce",
+          "size_mb": 14.1,
+          "category": 0.9629,
+          "needs_info_argmax": 0.9695,
+          "needs_info_threshold": 0.9899
+        },
+        {
+          "config": "quint8_perchannel",
+          "size_mb": 14.2,
+          "category": 0.987,
+          "needs_info_argmax": 0.9877,
+          "needs_info_threshold": 0.9941
+        },
+        {
+          "config": "quint8_perchannel_reduce",
+          "size_mb": 14.2,
+          "category": 0.9859,
+          "needs_info_argmax": 0.987,
+          "needs_info_threshold": 0.9914
+        },
+        {
+          "config": "qint8_matmul_only",
+          "size_mb": 26.0,
+          "category": 0.9703,
+          "needs_info_argmax": 0.9804,
+          "needs_info_threshold": 0.9943
+        },
+        {
+          "config": "qint8_reduce_matmul_only",
+          "size_mb": 26.0,
+          "category": 0.94,
+          "needs_info_argmax": 0.9558,
+          "needs_info_threshold": 0.9899
+        },
+        {
+          "config": "quint8_reduce_matmul_only",
+          "size_mb": 26.0,
+          "category": 0.9627,
+          "needs_info_argmax": 0.9708,
+          "needs_info_threshold": 0.9917
+        }
+      ],
+      "chosen": "quint8_perchannel",
+      "settings": {
+        "weight_type": "QUInt8",
+        "per_channel": true
+      },
+      "int8_mb": 14.2,
+      "val_category_agreement": 0.987,
+      "val_gate_category_ge_0.98": true
+    },
+    "fidelity": {
+      "agreement": {
+        "int8 vs ONNX fp32": {
+          "category": 0.9802,
+          "needs_info_argmax": 0.987,
+          "needs_info_threshold": 0.996
+        },
+        "ONNX fp32 vs PyTorch": {
+          "category": 1.0,
+          "needs_info_argmax": 1.0,
+          "needs_info_threshold": 1.0
+        },
+        "int8 vs PyTorch": {
+          "category": 0.9802,
+          "needs_info_argmax": 0.987,
+          "needs_info_threshold": 0.996
+        }
+      },
+      "macro_f1": {
+        "category": {
+          "pytorch": 0.7136,
+          "int8": 0.7128,
+          "delta": -0.0008
+        },
+        "needs_info_default": {
+          "pytorch": 0.5244,
+          "int8": 0.5261,
+          "delta": 0.0017
+        },
+        "needs_info_tuned": {
+          "pytorch": 0.4769,
+          "int8": 0.4804,
+          "delta": 0.0035
+        }
+      },
+      "latency": {
+        "fp32": {
+          "n": 200,
+          "p50_ms": 58.2,
+          "p95_ms": 63.8
+        },
+        "int8": {
+          "n": 200,
+          "p50_ms": 46.4,
+          "p95_ms": 51.6
+        }
+      },
+      "sizes": {
+        "fp32_mb": 54.2,
+        "int8_mb": 14.2
+      },
+      "gate": {
+        "val_category_agreement_ge_0.98": true,
+        "test_abs_delta_category_le_0.01": true,
+        "test_abs_delta_needs_info_tuned_le_0.01": true,
+        "size_le_50mb": true,
+        "passed": true
+      }
+    }
+  },
+  "notes": [
+    "Validation scores of electra-small (0.68) and minilm-l12 (0.6783) are practically tied: minilm-l12 is better on category, electra-small on needs_info. The pick between them is not a strong result.",
+    "Best epoch per run: [1, 2]; epochs actually run: [2, 3] (patience 1). No run improved after epoch 2, so the 4-epoch budget was never used and longer schedules or other learning rates were not explored.",
+    "The val-tuned needs_info thresholds vary a lot across seeds ([0.46, 0.68, 0.75]) and do not transfer to the test repos: for the exported seed the tuned threshold gives 0.4769 on test, lower than the 0.5244 at 0.5.",
+    "The encoder was trained on M1 text (template lines removed with statistics over each repo's own issues), but at deploy time only the frozen list can be applied: a train/inference cleaning mismatch. The deploy-time rows show its effect; the baseline refit row shows what training on the same cleaning would give.",
+    "artifacts/boilerplate.json contains some non-template lines, so it has to be filtered before it ships in the M3 demo. It is not published."
+  ]
+}
