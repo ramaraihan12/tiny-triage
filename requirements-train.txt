@@ -1,0 +1,11 @@
+# Extra packages for M2 (fine-tuning and ONNX export), installed into a venv created with
+# --system-site-packages. torch 2.2.0 with CUDA (cu118) is expected to be preinstalled and is
+# NOT listed here. numpy must stay below 2 for that torch build.
+# Run: python -m tiny_triage.finetune all --data DATA --runs RUNS --artifacts ART
+numpy<2
+transformers>=4.44,<4.50  # 4.50+ refuses .bin weights with torch<2.6 (electra-small is .bin only)
+onnx
+onnxruntime
+# pinned versions used for the reported run:
+# numpy==1.26.4 transformers==4.49.0 tokenizers==0.21.4 safetensors==0.8.0
+# onnx==1.23.2 onnxruntime==1.32.0 scikit-learn==1.9.1 scipy==1.17.1

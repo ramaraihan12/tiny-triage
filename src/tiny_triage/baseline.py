@@ -33,6 +33,88 @@ def _select(rows, split_key, split, target):
     return [r["text"] for r in sel], [r[target] for r in sel]
 
 
+class Fitted:
+    """TF-IDF vectorizers and the chosen logistic regression for one target."""
+
+    def __init__(self, word, char, model, best_c, val_scores, classes, models=None):
+        self.word, self.char, self.model = word, char, model
+        self.models = models or {}  # every C that was tried, for joint threshold tuning
+        self.best_c, self.val_scores, self.classes = best_c, val_scores, tuple(classes)
+
+    def transform(self, texts):
+        return hstack([self.word.transform(texts), self.char.transform(texts)]).tocsr()
+
+    def proba(self, texts, c: float | None = None) -> np.ndarray:
+        """Class probabilities with columns in the order of the target's class tuple.
+
+        Uses the chosen C unless another tried C is asked for.
+        """
+        model = self.model if c is None else self.models[c]
+        p = model.predict_proba(self.transform(texts))
+        order = [list(model.classes_).index(k) for k in self.classes]
+        return p[:, order]
+
+
+def fit_target(rows: list[dict], split_key: str, target: str, seed: int = 0) -> Fitted:
+    """Fit on train and pick C on val only."""
+    classes = TARGETS[target]
+    x_tr, y_tr = _select(rows, split_key, "train", target)
+    x_va, y_va = _select(rows, split_key, "val", target)
+    word, char = vectorizers()
+    m_tr = hstack([word.fit_transform(x_tr), char.fit_transform(x_tr)]).tocsr()
+    m_va = hstack([word.transform(x_va), char.transform(x_va)]).tocsr()
+    val_scores = {}
+    best_c, best_model, best_f1 = None, None, -1.0
+    models = {}
+    for c in C_GRID:
+        model = LogisticRegression(C=c, class_weight="balanced", max_iter=400, random_state=seed)
+        model.fit(m_tr, y_tr)
+        f1 = f1_score(y_va, model.predict(m_va), average="macro", labels=list(classes))
+        val_scores[str(c)] = round(float(f1), 4)
+        models[c] = model
+        if f1 > best_f1:
+            best_c, best_model, best_f1 = c, model, f1
+    return Fitted(word, char, best_model, best_c, val_scores, classes, models)
+
+
+def predict_split(
+    rows: list[dict], split_key: str = "split_repo", seed: int = 0, alt_texts: dict | None = None
+) -> dict:
+    """Per-issue probabilities of the same models run_split reports, for every val and test row.
+
+    alt_texts may hold {"val": [...], "test": [...]} replacement texts (same row order); the
+    fitted model scores those too, under "alt_val" and "alt_test".
+    """
+    val = [r["text"] for r in rows if r[split_key] == "val"]
+    test = [r["text"] for r in rows if r[split_key] == "test"]
+    out = {}
+    for target in TARGETS:
+        fit = fit_target(rows, split_key, target, seed)
+        res = {"chosen_C": fit.best_c, "val": fit.proba(val), "test": fit.proba(test)}
+        if alt_texts:
+            res["alt_val"] = fit.proba(alt_texts["val"])
+            res["alt_test"] = fit.proba(alt_texts["test"])
+        if target == "needs_info":
+            res["by_c"] = {
+                c: {
+                    "val": fit.proba(val, c),
+                    "test": fit.proba(test, c),
+                    **(
+                        {
+                            "alt_val": fit.proba(alt_texts["val"], c),
+                            "alt_test": fit.proba(alt_texts["test"], c),
+                        }
+                        if alt_texts
+                        else {}
+                    ),
+                }
+                for c in C_GRID
+            }
+        out[target] = res
+        print(f"baseline {target}: fitted (C={fit.best_c})", flush=True)
+    return out
+
+
 def run_split(rows: list[dict], split_key: str, seed: int = 0) -> dict:
     """Fit on train, pick C on val only, report on test. One result per target."""
     results: dict = {}
@@ -40,22 +122,9 @@ def run_split(rows: list[dict], split_key: str, seed: int = 0) -> dict:
         x_tr, y_tr = _select(rows, split_key, "train", target)
         x_va, y_va = _select(rows, split_key, "val", target)
         x_te, y_te = _select(rows, split_key, "test", target)
-        word, char = vectorizers()
-        m_tr = hstack([word.fit_transform(x_tr), char.fit_transform(x_tr)]).tocsr()
-        m_va = hstack([word.transform(x_va), char.transform(x_va)]).tocsr()
-        m_te = hstack([word.transform(x_te), char.transform(x_te)]).tocsr()
-        val_scores = {}
-        best_c, best_model, best_f1 = None, None, -1.0
-        for c in C_GRID:
-            model = LogisticRegression(
-                C=c, class_weight="balanced", max_iter=400, random_state=seed
-            )
-            model.fit(m_tr, y_tr)
-            f1 = f1_score(y_va, model.predict(m_va), average="macro", labels=list(classes))
-            val_scores[str(c)] = round(float(f1), 4)
-            if f1 > best_f1:
-                best_c, best_model, best_f1 = c, model, f1
-        pred = best_model.predict(m_te)
+        fit = fit_target(rows, split_key, target, seed)
+        best_c, val_scores = fit.best_c, fit.val_scores
+        pred = fit.model.predict(fit.transform(x_te))
         majority = Counter(y_tr).most_common(1)[0][0]
         maj_pred = [majority] * len(y_te)
         labels = list(classes)
