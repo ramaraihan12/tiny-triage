@@ -1,0 +1,100 @@
+{
+  "needs_info_threshold": 0.75,
+  "variants": {
+    "none": {
+      "val": {
+        "model": {
+          "category": 0.6932,
+          "needs_info": 0.7124,
+          "needs_info_0.5": 0.6077
+        },
+        "baseline": {
+          "category": 0.6855,
+          "needs_info": 0.5617
+        },
+        "model_vs_baseline_category_agree": 0.7234
+      },
+      "test": {
+        "model": {
+          "category": 0.73,
+          "needs_info": 0.5119,
+          "needs_info_0.5": 0.5301
+        },
+        "baseline": {
+          "category": 0.6514,
+          "needs_info": 0.5387
+        },
+        "model_vs_baseline_category_agree": 0.7164
+      },
+      "val_score": 0.7028
+    },
+    "full": {
+      "val": {
+        "model": {
+          "category": 0.6961,
+          "needs_info": 0.7097,
+          "needs_info_0.5": 0.6027
+        },
+        "baseline": {
+          "category": 0.6809,
+          "needs_info": 0.5553
+        },
+        "model_vs_baseline_category_agree": 0.7201
+      },
+      "test": {
+        "model": {
+          "category": 0.7251,
+          "needs_info": 0.4803,
+          "needs_info_0.5": 0.5024
+        },
+        "baseline": {
+          "category": 0.6522,
+          "needs_info": 0.5163
+        },
+        "model_vs_baseline_category_agree": 0.7095
+      },
+      "val_score": 0.7029
+    },
+    "filtered": {
+      "val": {
+        "model": {
+          "category": 0.6941,
+          "needs_info": 0.7098,
+          "needs_info_0.5": 0.609
+        },
+        "baseline": {
+          "category": 0.6794,
+          "needs_info": 0.5601
+        },
+        "model_vs_baseline_category_agree": 0.721
+      },
+      "test": {
+        "model": {
+          "category": 0.728,
+          "needs_info": 0.4807,
+          "needs_info_0.5": 0.4991
+        },
+        "baseline": {
+          "category": 0.6494,
+          "needs_info": 0.5116
+        },
+        "model_vs_baseline_category_agree": 0.7131
+      },
+      "val_score": 0.702
+    }
+  },
+  "chosen": "none",
+  "rule": "highest validation score for the int8 model among the variants that can ship (none, filtered; the full list holds non-template lines): mean of category macro-F1 and needs_info macro-F1 at the labels.json threshold 0.75. A gap under 0.002 counts as a tie and goes to none, which needs no list",
+  "n": {
+    "val": 4552,
+    "test": 4245
+  },
+  "n_needs_info_labelled": {
+    "val": 3421,
+    "test": 2462
+  },
+  "lines": {
+    "full": 549,
+    "filtered": 232
+  }
+}
